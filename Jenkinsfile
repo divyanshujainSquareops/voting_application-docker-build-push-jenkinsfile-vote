@@ -43,7 +43,7 @@ spec:
                 script {
                     container('kaniko') {
                         echo "${branch_name},${credentialsId},${Git_clone_repo_url}"
-                        git branch: '${branch_name}', credentialsId: '${credentialsId}' , url: '${Git_clone_repo_url}'
+                        git branch: '${branch_name}', credentialsId: ${credentialsId} , url: '${Git_clone_repo_url}'
                         echo "Repository cloned inside Kaniko container"
                     }
                 }
