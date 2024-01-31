@@ -28,7 +28,7 @@ spec:
     environment {
         DOCKER_HUB_REPO = 'divyanshujain11'
         BUILD_DATE = sh(script: 'date "+%Y-%m-%d"', returnStdout: true).trim()
-        Git_clone_repo_url= 'https://github.com/divyanshujainSquareops/voting_application-docker-build-push-jenkinsfile-worker.git'
+        Git_clone_repo_url= 'https://github.com/divyanshujainSquareops/voting_application-docker-build-push-jenkinsfile-vote.git'
         Git_helm_repo_url= 'https://github.com/divyanshujainSquareops/voting_application-helm-argocd.git'
         branch_name= 'main'
         credentialsId= 'github'
@@ -42,6 +42,8 @@ spec:
             steps {
                 script {
                     container('kaniko') {
+                        echo "${branch_name},${credentialsId},${Git_clone_repo_url}"
+    
                         git branch: ${branch_name}, credentialsId: ${credentialsId}, url: ${Git_clone_repo_url}
                         echo "Repository cloned inside Kaniko container"
                     }
