@@ -96,7 +96,7 @@ spec:
                             yq e -i '.image.tag = "'$BUILD_NUMBER'"' values.yaml
                             cd ..
                             git config --global --add safe.directory /home/jenkins/agent/workspace/${JOB_NAME}
-                            git config --global user.email ${user-email}
+                            git config --global user.email ${user_email}
                             git config --global user.name ${user_name}
                             git add .
                             git commit -m "commit=\$JOB_NAME-\$BUILD_NUMBER-\$BUILD_DATE"
