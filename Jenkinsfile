@@ -28,12 +28,12 @@ spec:
     environment {
         DOCKER_HUB_REPO = 'divyanshujain11'
         BUILD_DATE = sh(script: 'date "+%Y-%m-%d"', returnStdout: true).trim()
-        Git_clone_repo_url= 'https://github.com/divyanshujainSquareops/voting_application-docker-build-push-jenkinsfile-vote.git'
-        Git_helm_repo_url= 'https://github.com/divyanshujainSquareops/voting_application-helm-argocd.git'
-        branch_name= 'main'
-        credentialsId= 'github'
-        user_email= 'divyanshu.jain@squareops.com'
-        user_name= 'Divyanshu Jain'
+        Git_clone_repo_url= "https://github.com/divyanshujainSquareops/voting_application-docker-build-push-jenkinsfile-vote.git"
+        Git_helm_repo_url= "https://github.com/divyanshujainSquareops/voting_application-helm-argocd.git"
+        branch_name= "main"
+        credentialsId= "github"
+        user_email= "divyanshu.jain@squareops.com"
+        user_name= "Divyanshu Jain"
         
     }
 
