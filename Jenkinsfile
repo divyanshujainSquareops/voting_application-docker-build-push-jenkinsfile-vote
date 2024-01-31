@@ -42,7 +42,7 @@ spec:
             steps {
                 script {
                     container('kaniko') {
-                        git branch: ${main}, credentialsId: ${credentialsId}, url: ${Git_clone_repo_url}
+                        git branch: ${branch_name}, credentialsId: ${credentialsId}, url: ${Git_clone_repo_url}
                         echo "Repository cloned inside Kaniko container"
                     }
                 }
@@ -89,7 +89,7 @@ spec:
                     // Clone Git repo with credentials
                     
                    
-                    git branch: ${main}, credentialsId: ${credentialsId}, url: ${Git_helm_repo_url}
+                    git branch: ${branch_name}, credentialsId: ${credentialsId}, url: ${Git_helm_repo_url}
                      withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USER_NAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
                             cd ./vote/
