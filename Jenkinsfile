@@ -28,6 +28,13 @@ spec:
     environment {
         DOCKER_HUB_REPO = 'divyanshujain11'
         BUILD_DATE = sh(script: 'date "+%Y-%m-%d"', returnStdout: true).trim()
+        Git_clone_repo_url= 'https://github.com/divyanshujainSquareops/voting_application-docker-build-push-jenkinsfile-worker.git'
+        Git_helm_repo_url= 'https://github.com/divyanshujainSquareops/voting_application-helm-argocd.git'
+        branch_name= 'main'
+        credentialsId= 'github'
+        user_email= 'divyanshu.jain@squareops.com'
+        user_name= 'Divyanshu Jain'
+        
     }
 
     stages {
@@ -35,7 +42,7 @@ spec:
             steps {
                 script {
                     container('kaniko') {
-                        git branch: 'main', credentialsId: 'github', url: 'https://github.com/divyanshujainSquareops/voting_application-docker-build-push-jenkins.git'
+                        git branch: ${main}, credentialsId: ${credentialsId}, url: ${Git_clone_repo_url}
                         echo "Repository cloned inside Kaniko container"
                     }
                 }
@@ -82,15 +89,15 @@ spec:
                     // Clone Git repo with credentials
                     
                    
-                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/divyanshujainSquareops/voting_application-helm-argocd.git'
+                    git branch: ${main}, credentialsId: ${credentialsId}, , url: ${Git_helm_repo_url}
                      withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USER_NAME', passwordVariable: 'PASSWORD')]) {
                         sh '''
                             cd ./vote/
                             yq e -i '.image.tag = "'$BUILD_NUMBER'"' values.yaml
                             cd ..
                             git config --global --add safe.directory /home/jenkins/agent/workspace/${JOB_NAME}
-                            git config --global user.email "divyanshu.jain@squareops.com"
-                            git config --global user.name "Divyanshu jain"
+                            git config --global user.email ${user-email}
+                            git config --global user.name ${user_name}
                             git add .
                             git commit -m "commit=\$JOB_NAME-\$BUILD_NUMBER-\$BUILD_DATE"
                             git push https://${USER_NAME}:${PASSWORD}@github.com/divyanshujainSquareops/voting_application-helm-argocd.git main
